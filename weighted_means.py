@@ -2,12 +2,18 @@ import pandas as pd
 import numpy
 import math
 import scipy.stats as st
+import argparse
+
+parser = argparse.ArgumentParser(description='Calculate weighted mean')
+parser.add_argument("--data")
+
+args = parser.parse_args()
+data = args.data
 
 # TODO refactor to read command line argument
-# all = pd.read_csv(
-#     "/Users/vo/Desktop/github/opportunity-atlast-homework-1/tract_outcomes_simple.csv")
-usa = pd.read_csv(
-    "/Users/vo/Desktop/github/opportunity-atlast-homework-1/atlas.csv")
+# replace with location of atlas.csv
+data_source = "/Users/vo/Desktop/github/opportunity-atlast-homework-1/atlas.csv"
+usa = pd.read_csv(data_source)
 
 count_pooled = "count_pooled"
 
