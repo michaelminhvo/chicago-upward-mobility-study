@@ -1,4 +1,8 @@
-This code is for assignment #1 from https://opportunityinsights.org/course/. The course uses Strata, a paid product. We instead convert the Strata file into a csv using:
+This code is for [assignment #1](https://opportunityinsights.org/wp-content/uploads/2019/05/project1-1.pdf) from https://opportunityinsights.org/course/. The course uses a paid product called Strata for data analysis. We instead convert the Strata file into a csv and use free python packages. 
+
+As I do not go to Harvard, this is not graded. Use at your own discretion. 
+
+To convert the file:
 
 ```
 python ConvertToCSV/convert_dta_csv.py --i=atlas.dta --o=atlas.csv
