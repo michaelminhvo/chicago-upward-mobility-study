@@ -41,9 +41,9 @@ def print_stats(data, statistic_name, count_pooled):
                                                                       county[count_pooled].fillna(0)))))
 
 
-# print_stats(usa, 'kfr_pooled_p25', count_pooled)
+print_stats(usa, 'kfr_pooled_p25', count_pooled)
 # print_stats(usa, 'kfr_pooled_p75', count_pooled)
-print_stats(usa, 'kfr_pooled_p100', count_pooled)
+# print_stats(usa, 'kfr_pooled_p100', count_pooled)
 
 fulton = usa.loc[(usa['state'] == 17) & (
     usa['county'] == 31) & (usa['tract'] == 833000)]
