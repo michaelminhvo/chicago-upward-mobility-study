@@ -6,16 +6,22 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Calculate weighted mean')
 parser.add_argument("--data")
+parser.add_argument("--percentile_name")
+parser.add_argument("--tract", help="The tract number (last 6 digits)",
+                    type=int)
+parser.add_argument("--state", help="Two-digit state 2010 FIPS code",
+                    type=int)
+parser.add_argument("--county", help="Three-digit county 2010 FIPS code but the original data file uses integers so it truncates leading zeroes",
+                    type=int)
+parser.add_argument(
+    "--count_pooled", help="The csv column name for the weight to use for each of the percentiles")
 
 args = parser.parse_args()
 data = args.data
+usa = pd.read_csv(data)
 
-# TODO refactor to read command line argument
-# replace with location of atlas.csv
-data_source = "/Users/vo/Desktop/github/opportunity-atlast-homework-1/atlas.csv"
-usa = pd.read_csv(data_source)
-
-count_pooled = "count_pooled"
+# The weight to use for each of the percentiles
+count_pooled = args.count_pooled
 
 
 def weighted_avg_and_std(values, weights):
@@ -30,45 +36,35 @@ def weighted_avg_and_std(values, weights):
     return (average, math.sqrt(variance))
 
 
-# 17 == Illinois. Two-digit state 2010 FIPS code
-# 031 County. Three-digit county 2010 FIPS code but the original data file uses integers so it truncates the "0"
-# a = a[(a[:, 0] == "17") & (
-#     a[:, 1] == "31") & (a[:, 2] == "833000")]
 def print_stats(data, statistic_name, count_pooled):
     wa = weighted_avg_and_std(data[statistic_name].fillna(
         0), data[count_pooled].fillna(0))
-    print("{} {}".format("USA (Mean, SD): ", wa))
-    illinois = data[data["state"] == 17]
-    county = illinois[illinois["county"] == 31]
+    illinois = data[data["state"] == args.state]
+    county = illinois[illinois["county"] == args.county]
 
+    print("{} {}".format("USA (Mean, SD): ", wa))
     print("{} {}".format("State (Mean, SD): ", (weighted_avg_and_std(illinois[statistic_name].fillna(0),
                                                                      illinois[count_pooled].fillna(0)))))
     print("{} {}".format("County (Mean, SD): ", (weighted_avg_and_std(county[statistic_name].fillna(0),
                                                                       county[count_pooled].fillna(0)))))
 
 
-print_stats(usa, 'kfr_pooled_p25', count_pooled)
-# print_stats(usa, 'kfr_pooled_p75', count_pooled)
-# print_stats(usa, 'kfr_pooled_p100', count_pooled)
-
-fulton = usa.loc[(usa['state'] == 17) & (
-    usa['county'] == 31) & (usa['tract'] == 833000)]
-
-print(st.norm.cdf(-1.768042827))
-print(st.norm.cdf(0.0517225389))
-print(st.norm.cdf(-0.2160341725))
-
-# 75th percentile
-print(st.norm.cdf(-1.406208284))
-print(st.norm.cdf(0.0912927634))
-print(st.norm.cdf(-0.3764243194))
-
-# 100th percentile
-print(st.norm.cdf(-0.8490051785))
-print(st.norm.cdf(-0.3754639977))
-print(st.norm.cdf(0.07423620524))
+print_stats(usa, args.percentile_name, count_pooled)
 
 
-# print(fulton['kfr_pooled_p25'])
-print(fulton['kfr_pooled_p100'])
-# print(fulton['count_pooled'])
+# fulton = usa.loc[(usa['state'] == args.state) & (
+#     usa['county'] == args.county) & (usa['tract'] == args.tract)]
+
+# print(st.norm.cdf(-1.768042827))
+# print(st.norm.cdf(0.0517225389))
+# print(st.norm.cdf(-0.2160341725))
+
+# # 75th percentile
+# print(st.norm.cdf(-1.406208284))
+# print(st.norm.cdf(0.0912927634))
+# print(st.norm.cdf(-0.3764243194))
+
+# # 100th percentile
+# print(st.norm.cdf(-0.8490051785))
+# print(st.norm.cdf(-0.3754639977))
+# print(st.norm.cdf(0.07423620524))

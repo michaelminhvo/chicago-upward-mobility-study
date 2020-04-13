@@ -1,4 +1,11 @@
 import pandas as pd
-data = pd.io.stata.read_stata(
-    '/Users/vo/Desktop/github/opportunity-atlast-homework-1/atlas.dta')
-data.to_csv('/Users/vo/Desktop/github/opportunity-atlast-homework-1/atlas.csv')
+import argparse
+
+parser = argparse.ArgumentParser(description='convert to csv')
+parser.add_argument("--i")
+parser.add_argument("--o")
+
+args = parser.parse_args()
+
+data = pd.io.stata.read_stata(args.i)
+data.to_csv(args.o)
