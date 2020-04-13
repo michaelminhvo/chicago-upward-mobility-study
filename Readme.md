@@ -42,15 +42,17 @@ fr_pooled_p25 --column2=kfr_pooled_p75
 
 Question 7:
 
+```
 python linear_regression.py --data=atlas.csv --state=17 --county=31 --column1=kfr_black_p25 --column2=kfr_black_p75
-
 python linear_regression.py --data=atlas.csv --state=17 --county=31 --column1=kfr_asian_p25 --column2=kfr_asian_p75
-
 python linear_regression.py --data=atlas.csv --state=17 --county=31 --column1=kfr_white_p25 --column2=kfr_white_p75
+```
 
 Question 8:
 
+```
 python linear_regression.py --data=atlas.csv --state=17 --county=31 --column1=kfr_white_p25 --column2=singleparent_share1990
 python linear_regression.py --data=atlas.csv --state=17 --county=31 --column1=kfr_black_p25 --column2=singleparent_share1990
+```
 
 
