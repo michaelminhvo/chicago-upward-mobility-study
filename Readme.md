@@ -9,6 +9,17 @@ python ConvertToCSV/convert_dta_csv.py --i=atlas.dta --o=atlas.csv
 mv ConvertToCSV/atlas.csv aslas.csv
 ```
 
+To install python packages on mac osx, run 
+`pip install pandas`
+`pip list` to double check that pandas is installed correctly.
+`python --version` I used 2.7.16 as the latest python version is not compatible with pandas.
+
+If using vscode, change python interpreter by 
+1. Command palette
+2. select python interpreter
+3. Select 2.7
+
+This will need to be done for every project. 
 
 
 To get the weighted mean run 
